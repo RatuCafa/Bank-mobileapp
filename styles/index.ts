@@ -1,1 +1,1 @@
-export type { loginStyles } from "./loginStyle";
+export { loginStyles } from "./loginStyle";
