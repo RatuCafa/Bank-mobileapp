@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import React from "react";
-import LoginScreen  from "./login";
-=======
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
->>>>>>> 74d79ff972f2d67d91a41b2c3d1391399fadec2a
-=======
-import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
->>>>>>> 83ca98b2c49c9f41e25cc41b93583fd122854e24
 
 // Mengimpor file terpisah
 import { handleLogin } from "../../component";
