@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 // Mengimpor file terpisah
-import { handleLogin } from '../../component';
-import { renderLogin } from '../../page' 
+import { handleLogin } from "../../component";
+import { renderLogin } from "../../page";
 
 // These modules currently expose the values through their runtime module
 // exports even though their TypeScript declarations use export type.
-const { loginStyles } = require('../../styles') as {
-  loginStyles: Record<string, unknown>;
-};
-const { camelFeatures } = require('../../constants') as {
-  camelFeatures: unknown[];
-};
+import { loginStyles }  from "../../styles"
+import { camelFeatures } from "../../constants"
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   return (
     // Menggunakan External Styles (styles.container)
@@ -43,8 +39,8 @@ const LoginScreen = () => {
         secureTextEntry={true}
       />
 
-      <TouchableOpacity 
-        style={loginStyles.loginButton} 
+      <TouchableOpacity
+        style={loginStyles.loginButton}
         // Memanggil fungsi dari user.ts
         onPress={() => handleLogin(email, password)}
       >
@@ -53,7 +49,7 @@ const LoginScreen = () => {
 
       <View style={loginStyles.featureSection}>
         <Text style={loginStyles.featureHeading}>Kenapa memilih My Camel?</Text>
-        
+
         {/* Memanggil fungsi render dari renderFeature.tsx */}
         {renderLogin(camelFeatures)}
       </View>
