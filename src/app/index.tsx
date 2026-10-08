@@ -1,8 +1,9 @@
-import React from "react";
-import { LoginScreen } from "./login";
+import { Text, View } from "react-native";
 
-const App: React.FC = () => {
-  return <LoginScreen />;
-};
-
-export default App;
+export default function Index() {
+  return (
+    <View>
+      <Text>My Cmel</Text>
+    </View>
+  );
+}
