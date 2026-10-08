@@ -53,7 +53,8 @@ export const loginStyles = StyleSheet.create({
   featureHeading: {
     fontSize: 16,
     fontWeight: '600',
+    marginTop: 12,
     marginBottom: 12,
     color: '#8B4513',
-  }
+  },
 });

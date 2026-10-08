@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
 import { Link, router } from "expo-router";
-
-// Import style (sesuaikan dengan path yang benar)
 import { loginStyles } from "../../styles";
-// Import fungsi logika yang baru kita buat di atas
 import { handleSignup } from "../../component"; 
 
 const SignupScreen = () => {
@@ -20,14 +17,11 @@ const SignupScreen = () => {
   const [password, setPassword] = useState<string>(""); // <-- Tambahan
   const [konfirmasiPassword, setKonfirmasiPassword] = useState<string>("");
 
-  // Fungsi yang dipanggil saat tombol DAFTAR ditekan
   const onSubmit = async () => {
-    // Validasi tambahan khusus di UI: Pastikan password sama
     if (password !== konfirmasiPassword) {
       alert("Gagal: Password dan Konfirmasi Password tidak cocok!");
       return;
     }
-    // Gabungkan semua data ke dalam satu objek
     const dataPendaftaran = {
       namaLengkap,
       ttl,
@@ -40,10 +34,8 @@ const SignupScreen = () => {
       password
     };
 
-    // Jalankan fungsi logika Sign Up
     const isSuccess = await handleSignup(dataPendaftaran);
     
-    // Jika berhasil, arahkan kembali ke halaman Login (opsional)
     if (isSuccess) {
       router.replace("/");
     }
