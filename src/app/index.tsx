@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-
+import { Link } from "expo-router";
 // Mengimpor file terpisah
 import { handleLogin } from "../../component";
 import { renderLogin } from "../../page";
@@ -49,6 +49,15 @@ const LoginScreen = () => {
 
       <View style={loginStyles.featureSection}>
         <Text style={loginStyles.featureHeading}>Kenapa memilih My Camel?</Text>
+        {/* Tambahkan kode ini di bawah featureSection */}
+      <View style={{ marginTop: 20, alignItems: 'center' }}>
+        <Text style={{ color: '#555' }}>Belum punya akun?</Text>
+        <Link href="/signup" asChild>
+          <TouchableOpacity>
+            <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }}>Daftar di sini</Text>
+          </TouchableOpacity>
+        </Link>
+      </View>
 
         {/* Memanggil fungsi render dari renderFeature.tsx */}
         {renderLogin(camelFeatures)}
