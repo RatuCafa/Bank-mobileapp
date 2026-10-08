@@ -1,67 +1,49 @@
-import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Link } from "expo-router";
-// Mengimpor file terpisah
-import { handleLogin } from "../../component";
-import { renderLogin } from "../../page";
+import { Text, View, TouchableOpacity, Image } from "react-native";
+import { router } from "expo-router";
 
-// These modules currently expose the values through their runtime module
-// exports even though their TypeScript declarations use export type.
-import { loginStyles }  from "../../styles"
-import { camelFeatures } from "../../constants"
+// Mengimpor style bertema My Camel
+import { loginStyles } from "../../styles"; 
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
   return (
-    // Menggunakan External Styles (styles.container)
     <View style={loginStyles.container}>
-      <Text style={loginStyles.headerText}>My Camel</Text>
-      <Text style={loginStyles.subHeaderText}>Your Premium Desert Ride</Text>
-
-      <TextInput
-        style={loginStyles.input}
-        placeholder="Masukkan Email"
-        placeholderTextColor="#999"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-
-      <TextInput
-        style={loginStyles.input}
-        placeholder="Masukkan Password"
-        placeholderTextColor="#999"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry={true}
-      />
-
-      <TouchableOpacity
-        style={loginStyles.loginButton}
-        // Memanggil fungsi dari user.ts
-        onPress={() => handleLogin(email, password)}
-      >
-        <Text style={loginStyles.loginButtonText}>MASUK</Text>
-      </TouchableOpacity>
-
-      <View style={loginStyles.featureSection}>
-        <Text style={loginStyles.featureHeading}>Kenapa memilih My Camel?</Text>
-        {/* Tambahkan kode ini di bawah featureSection */}
-      <View style={{ marginTop: 20, alignItems: 'center' }}>
-        <Text style={{ color: '#555' }}>Belum punya akun?</Text>
-        <Link href="/signup" asChild>
-          <TouchableOpacity>
-            <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }}>Daftar di sini</Text>
-          </TouchableOpacity>
-        </Link>
+      
+      {/* 1. Bagian Atas: Teks Judul Rata Kiri */}
+      <View style={loginStyles.headerContainer}>
+        <Text style={loginStyles.subTitle}>My Camel</Text>
+        <Text style={loginStyles.mainTitle}>Your Digital{"\n"}Wallet{"\n"}Simplified</Text>
       </View>
 
-        {/* Memanggil fungsi render dari renderFeature.tsx */}
-        {renderLogin(camelFeatures)}
+      {/* 2. Bagian Tengah: Gambar Ilustrasi Mengambang */}
+      <View style={loginStyles.imageContainer}>
+        <Image
+          source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/077/247/968/small/3d-cute-cartoon-brown-leather-wallet-with-credit-cards-inside-isolated-on-transparent-background-png.png' }}
+          style={loginStyles.illustration}
+          resizeMode="contain"
+        />
       </View>
+
+      {/* 3. Bagian Bawah: Tombol Login Oval */}
+      <View style={loginStyles.buttonContainer}>
+        
+        {/* Tombol Atas berubah jadi Sign Up */}
+        <TouchableOpacity 
+          style={loginStyles.googleButton}
+          onPress={() => router.push('/signup')} // <-- Langsung arahkan ke form pendaftaran
+        >
+          <Text style={loginStyles.googleButtonText}>Sign Up now</Text>
+        </TouchableOpacity>
+
+        {/* Tombol Bawah berubah jadi Sign In */}
+        <TouchableOpacity 
+          style={loginStyles.emailButton}
+          onPress={() => router.push('/login')} // <-- Mengarah ke halaman form login
+        >
+          <Text style={loginStyles.emailButtonText}>Sign In</Text>
+        </TouchableOpacity>
+        
+      </View>
+
     </View>
   );
 };
