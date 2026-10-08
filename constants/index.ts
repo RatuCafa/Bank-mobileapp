@@ -1,1 +1,1 @@
-export type { camelFeatures } from "./myCameldata";
+export { camelFeatures } from "./myCameldata";
