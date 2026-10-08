@@ -1,0 +1,1 @@
+export type { camelFeatures } from "./myCameldata";
