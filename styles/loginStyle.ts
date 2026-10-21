@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-// Menerapkan External Styles
 export const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -32,12 +31,12 @@ export const loginStyles = StyleSheet.create({
     fontSize: 16,
   },
   loginButton: {
-    backgroundColor: '#D2691E',
+    backgroundColor: 'blue',
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10,
-    elevation: 3, // Shadow untuk Android
+    elevation: 3,
   },
   loginButtonText: {
     color: '#FFFFFF',

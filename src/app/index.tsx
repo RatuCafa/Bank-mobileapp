@@ -12,6 +12,13 @@ const LoginScreen = () => {
 
   return (
     <View style={loginStyles.container}>
+
+      <TouchableOpacity
+        style={loginStyles.loginButton}
+        onPress={() => handleLogin(email, password)}
+      >
+        <Text style={loginStyles.loginButtonText}>MASUK</Text>
+      </TouchableOpacity>
       <Text style={loginStyles.headerText}>My Camel</Text>
       <Text style={loginStyles.subHeaderText}>Bank Account</Text>
 
@@ -34,15 +41,9 @@ const LoginScreen = () => {
         secureTextEntry={true}
       />
 
-      <TouchableOpacity
-        style={loginStyles.loginButton}
-        onPress={() => handleLogin(email, password)}
-      >
-        <Text style={loginStyles.loginButtonText}>MASUK</Text>
-      </TouchableOpacity>
+      
 
       <View style={loginStyles.featureSection}>
-        {/* Tambahkan kode ini di bawah featureSection */}
         <View style={{ marginTop: 20, alignItems: 'center' }}>
           
           <Text style={{ color: '#555' }}>Belum punya akun?</Text>
@@ -54,7 +55,6 @@ const LoginScreen = () => {
           
         </View>
         <Text style={loginStyles.featureHeading}>Kenapa memilih My Camel?</Text>
-        {/* Memanggil fungsi render dari renderFeature.tsx */}
         {renderLogin(camelFeatures)}
       </View>
     </View>

@@ -9,11 +9,10 @@ export interface SignupData {
   noHp: string;
   email: string;
   pekerjaan: string;
-  password: string; // <-- Tambahan baru
+  password: string; 
 }
 
 export const handleSignup = async (data: SignupData) => {
-  // Tambahkan pengecekan password di sini
   if (
     !data.namaLengkap || !data.ttl || !data.nik || !data.alamat ||
     !data.namaIbuKandung || !data.noHp || !data.email || 
@@ -28,7 +27,6 @@ export const handleSignup = async (data: SignupData) => {
     return false;
   }
 
-  // Lanjut proses pendaftaran...
   try {
     console.log("Memproses pendaftaran dengan data:", data);
     alert("Berhasil! Pendaftaran akun bank sedang diproses.");

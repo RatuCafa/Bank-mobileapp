@@ -5,7 +5,6 @@ import { loginStyles } from "../../styles";
 import { handleSignup } from "../../component"; 
 
 const SignupScreen = () => {
-  // Semua state untuk menampung inputan pengguna
   const [namaLengkap, setNamaLengkap] = useState<string>("");
   const [ttl, setTtl] = useState<string>("");
   const [nik, setNik] = useState<string>("");
