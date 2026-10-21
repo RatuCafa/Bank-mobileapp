@@ -20,6 +20,7 @@ export const loginStyles = StyleSheet.create({
     marginBottom: 30,
     color: '#A0522D',
   },
+
   input: {
     height: 50,
     borderColor: '#DEB887',
@@ -30,13 +31,16 @@ export const loginStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     fontSize: 16,
   },
+
   loginButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#A0522D',
     paddingVertical: 15,
+    paddingHorizontal: 20,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10,
     elevation: 3,
+    
   },
   loginButtonText: {
     color: '#FFFFFF',
@@ -55,5 +59,10 @@ export const loginStyles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 12,
     color: '#8B4513',
+  },
+  infoIcon: {
+    justifyContent: "flex-end",
+    alignItems: 'flex-end',
+    marginRight: 10,
   },
 });

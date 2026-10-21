@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
-import { Link, router } from "expo-router";
-import { loginStyles } from "../../styles";
-import { handleSignup } from "../../component"; 
+import { useRouter} from "expo-router";
+import { loginStyles } from "../styles";
+import { handleSignup } from "../component"; 
 
-const SignupScreen = () => {
+export function SignupScreen () {
   const [namaLengkap, setNamaLengkap] = useState<string>("");
   const [ttl, setTtl] = useState<string>("");
   const [nik, setNik] = useState<string>("");
@@ -15,6 +15,8 @@ const SignupScreen = () => {
   const [pekerjaan, setPekerjaan] = useState<string>("");
   const [password, setPassword] = useState<string>(""); // <-- Tambahan
   const [konfirmasiPassword, setKonfirmasiPassword] = useState<string>("");
+
+  const router = useRouter();
 
   const onSubmit = async () => {
     if (password !== konfirmasiPassword) {
@@ -36,12 +38,11 @@ const SignupScreen = () => {
     const isSuccess = await handleSignup(dataPendaftaran);
     
     if (isSuccess) {
-      router.replace("/");
+      router.replace("./signin");
     }
   };
 
   return (
-    // Gunakan ScrollView karena formnya panjang
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={[loginStyles.container, { paddingVertical: 40 }]}>
         <Text style={loginStyles.headerText}>My Camel</Text>
@@ -134,7 +135,6 @@ const SignupScreen = () => {
           secureTextEntry={true}
         />
 
-        {/* Tombol Daftar */}
         <TouchableOpacity
           style={loginStyles.loginButton}
           onPress={onSubmit}
@@ -142,18 +142,13 @@ const SignupScreen = () => {
           <Text style={loginStyles.loginButtonText}>AJUKAN PENDAFTARAN</Text>
         </TouchableOpacity>
 
-        {/* Kembali ke Login */}
         <View style={{ marginTop: 20, alignItems: 'center' }}>
           <Text style={{ color: '#555' }}>Sudah memiliki rekening?</Text>
-          <Link href="/" asChild>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={ () => router.back()}>
               <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }}>Masuk di sini</Text>
             </TouchableOpacity>
-          </Link>
         </View>
       </View>
     </ScrollView>
   );
 };
-
-export default SignupScreen;
