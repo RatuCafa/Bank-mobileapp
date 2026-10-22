@@ -11,7 +11,7 @@ import {
 import { backButton as BackButton } from "../component";
 import { handleLogin } from "../functions";
 import { SignInStyle } from "../styles";
-import { FadeSpec } from "expo-router/build/react-navigation/bottom-tabs/TransitionConfigs/TransitionSpecs";
+
 
 export function LoginScreen() {
   const [email, setEmail] = useState("");
