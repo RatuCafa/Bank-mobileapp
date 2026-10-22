@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { backButton as BackButton } from "../component";
+import { backButton as BackButton, handleLogin } from "../component";
 import { SignInStyle } from "../styles";
 
 export function LoginScreen() {
@@ -76,7 +76,7 @@ export function LoginScreen() {
               secureTextEntry
             />
 
-            <TouchableOpacity style={SignInStyle.forgotPassword}>
+            <TouchableOpacity style={SignInStyle.forgotPassword} >
               <Text style={SignInStyle.forgotPasswordText}>
                 Forgot your password ?
               </Text>
