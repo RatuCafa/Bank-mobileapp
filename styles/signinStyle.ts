@@ -43,6 +43,7 @@ export const SignInStyle = StyleSheet.create({
   // Sambutan
   welcomeSection: {
     marginBottom: 20,
+    alignItems: "center",
   },
   welcomeText: {
     fontSize: 32,

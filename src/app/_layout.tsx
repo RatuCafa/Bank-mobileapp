@@ -7,9 +7,9 @@ export default function RootLayout() {
 
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-      <Stack>
-        <Stack.Screen name="index" options={{ title: "Home" }} />
-        <Stack.Screen name="auth" options={{ title: "Login" }} />
+      <Stack screenOptions={{headerShown: false}}>
+        <Stack.Screen name="index" options={{ title: "Home", headerShown: false}} />
+        <Stack.Screen name="auth" options={{ title: "Login", headerShown: false}} />
       </Stack>
     </ThemeContext.Provider>
   );

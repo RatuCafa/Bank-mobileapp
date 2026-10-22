@@ -57,7 +57,7 @@ export default function LoginScreen() {
             My Camel
           </Text>
           <Text style={[pageStyles.mainTitle, { color: darkMode ? "#FFFFFF" : "#000000" }]}>
-            Your Digital{"\n"}Wallet{"\n"}Simplified
+            Your Digital Wallet{"\n"}Simplified
           </Text>
         </View>
 

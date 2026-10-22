@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 import { backButton as BackButton} from "../component";
 
-// Import style (sesuaikan dengan path yang benar)
+
 import { loginStyle } from "../styles";
-// Import fungsi logika yang baru kita buat di atas
+
 import { handleSignup } from "../component"; 
 
 export function SignupScreen ()  {
