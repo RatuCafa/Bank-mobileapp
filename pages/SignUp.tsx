@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
-import { Link, router } from "expo-router";
+import { router, Stack } from "expo-router";
+import { backButton as BackButton} from "../component";
 
-// Import style (sesuaikan dengan path yang benar)
-import { loginStyles } from "../../styles";
-// Import fungsi logika yang baru kita buat di atas
-import { handleSignup } from "../../component"; 
 
-const SignupScreen = () => {
+import { loginStyle } from "../styles";
+
+import { handleSignup } from "../functions"; 
+
+export function SignupScreen ()  {
   // Semua state untuk menampung inputan pengguna
   const [namaLengkap, setNamaLengkap] = useState<string>("");
   const [ttl, setTtl] = useState<string>("");
@@ -52,12 +53,13 @@ const SignupScreen = () => {
   return (
     // Gunakan ScrollView karena formnya panjang
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={[loginStyles.container, { paddingVertical: 40 }]}>
-        <Text style={loginStyles.headerText}>My Camel</Text>
-        <Text style={loginStyles.subHeaderText}>Buka Rekening Baru</Text>
+      <View style={[loginStyle.container, { paddingVertical: 40 }]}>
+        <BackButton />
+        <Text style={loginStyle.headerText}>My Camel</Text>
+        <Text style={loginStyle.subHeaderText}>Buka Rekening Baru</Text>
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Nama Lengkap (Sesuai KTP)"
           placeholderTextColor="#999"
           value={namaLengkap}
@@ -65,7 +67,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Tempat, Tanggal Lahir"
           placeholderTextColor="#999"
           value={ttl}
@@ -73,7 +75,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Nomor Induk Kependudukan (NIK)"
           placeholderTextColor="#999"
           value={nik}
@@ -83,7 +85,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Alamat Lengkap"
           placeholderTextColor="#999"
           value={alamat}
@@ -91,7 +93,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Nama Gadis Ibu Kandung"
           placeholderTextColor="#999"
           value={namaIbuKandung}
@@ -99,7 +101,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Nomor HP Aktif"
           placeholderTextColor="#999"
           value={noHp}
@@ -108,7 +110,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Alamat Email"
           placeholderTextColor="#999"
           value={email}
@@ -118,7 +120,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Pekerjaan Saat Ini"
           placeholderTextColor="#999"
           value={pekerjaan}
@@ -126,7 +128,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Buat Password"
           placeholderTextColor="#999"
           value={password}
@@ -135,7 +137,7 @@ const SignupScreen = () => {
         />
 
         <TextInput
-          style={loginStyles.input}
+          style={loginStyle.input}
           placeholder="Konfirmasi Password"
           placeholderTextColor="#999"
           value={konfirmasiPassword}
@@ -145,24 +147,20 @@ const SignupScreen = () => {
 
         {/* Tombol Daftar */}
         <TouchableOpacity
-          style={loginStyles.loginButton}
+          style={loginStyle.loginButton}
           onPress={onSubmit}
         >
-          <Text style={loginStyles.loginButtonText}>AJUKAN PENDAFTARAN</Text>
+          <Text style={loginStyle.loginButtonText}>AJUKAN PENDAFTARAN</Text>
         </TouchableOpacity>
 
         {/* Kembali ke Login */}
         <View style={{ marginTop: 20, alignItems: 'center' }}>
           <Text style={{ color: '#555' }}>Sudah memiliki rekening?</Text>
-          <Link href="/" asChild>
             <TouchableOpacity>
-              <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }}>Masuk di sini</Text>
+              <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }} onPress={ () => router.back()}>Masuk di sini</Text>
             </TouchableOpacity>
-          </Link>
         </View>
       </View>
     </ScrollView>
   );
 };
-
-export default SignupScreen;

@@ -6,7 +6,6 @@ import { AppFeature } from '../types';
 export const renderFeatures = (features: AppFeature[]) => {
   let featureElements = [];
   
-  
   for (let i = 0; i < features.length; i++) {
     const item = features[i];
     featureElements.push(

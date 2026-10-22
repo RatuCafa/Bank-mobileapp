@@ -1,54 +1,94 @@
-import { Text, View, TouchableOpacity, Image } from "react-native";
-import { router, Stack } from "expo-router";
-import { loginStyles } from "../../styles"; 
+import { useEffect, useContext } from "react";
+import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
+import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage"; 
+import { pageStyles } from "../../styles";
+import { ThemeContext } from "../../hooks"; 
 
-<Stack.Screen options={{ headerShown: false }} />
+export default function LoginScreen() {
+  const { darkMode, setDarkMode } = useContext(ThemeContext);
 
-const LoginScreen = () => {
+  
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem("appTheme");
+        if (savedTheme !== null) {
+          setDarkMode(savedTheme === "dark");
+        }
+      } catch (error) {
+        console.error("Gagal memuat tema:", error);
+      }
+    };
+
+    loadTheme();
+  }, []); 
+
+  useEffect(() => {
+    const saveTheme = async () => {
+      try {
+        await AsyncStorage.setItem("appTheme", darkMode ? "dark" : "light");
+        console.log("Tema disimpan:", darkMode ? "Dark Mode" : "Light Mode");
+      } catch (error) {
+        console.error("Gagal menyimpan tema:", error);
+      }
+    };
+
+    saveTheme();
+  }, [darkMode]); 
+
   return (
-    <View style={loginStyles.container}>
-      
-      {/* 1. Bagian Atas: Teks Judul Rata Kiri */}
-      <View style={loginStyles.headerContainer}>
-        <Text style={loginStyles.subTitle}>My Camel</Text>
-        <Text style={loginStyles.mainTitle}>Your Digital{"\n"}Wallet{"\n"}Simplified</Text>
-      </View>
-
-      {/* 2. Bagian Tengah: Gambar Ilustrasi Mengambang */}
-      <View style={loginStyles.imageContainer}>
-        <Image
-          source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/077/247/968/small/3d-cute-cartoon-brown-leather-wallet-with-credit-cards-inside-isolated-on-transparent-background-png.png' }}
-          style={loginStyles.illustration}
-          resizeMode="contain"
-        />
-      </View>
-
-      {/* 3. Bagian Bawah: Tombol Login Oval */}
-      <View style={loginStyles.buttonContainer}>
+    <ScrollView style={{ backgroundColor: darkMode ? "#121212" : "#F5E6D3", flex: 1 }}>
+      <View style={[pageStyles.container, { backgroundColor: darkMode ? "#121212" : "#F5E6D3" }]}>
         
-        {/* Tombol Atas berubah jadi Sign Up */}
+        {/* Tombol Toggle Tema */}
         <TouchableOpacity 
-          style={loginStyles.googleButton}
-          onPress={() => router.push('/signup')} 
+          style={{ alignSelf: 'flex-end', padding: 10 }}
+          onPress={() => setDarkMode(!darkMode)}
         >
-          <Text style={loginStyles.googleButtonText}>Sign Up now</Text>
+          <Text style={{ color: darkMode ? "#FFF" : "#000", fontWeight: "bold" }}>
+            {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+          </Text>
         </TouchableOpacity>
 
-        {/* Tombol Bawah berubah jadi Sign In */}
-        <TouchableOpacity 
-          style={loginStyles.emailButton}
-          onPress={() => router.push('/login')} 
-        >
-          <Text style={loginStyles.emailButtonText}>Sign In</Text>
-        </TouchableOpacity>
+        {/* Bagian Atas: Teks Judul */}
+        <View style={pageStyles.headerContainer}>
+          <Text style={[pageStyles.subTitle, { color: darkMode ? "#BBBBBB" : "gray" }]}>
+            My Camel
+          </Text>
+          <Text style={[pageStyles.mainTitle, { color: darkMode ? "#FFFFFF" : "#000000" }]}>
+            Your Digital Wallet{"\n"}Simplified
+          </Text>
+        </View>
 
+        {/* Bagian Tengah: Gambar */}
+        <View style={pageStyles.imageContainer}>
+          <Image
+            source={{
+              uri: "https://static.vecteezy.com/system/resources/thumbnails/077/247/968/small/3d-cute-cartoon-brown-leather-wallet-with-credit-cards-inside-isolated-on-transparent-background-png.png",
+            }}
+            style={pageStyles.illustration}
+            resizeMode="contain"
+          />
+        </View>
 
-        
+        {/* Bagian Bawah: Tombol Navigasi */}
+        <View style={pageStyles.buttonContainer}>
+          <TouchableOpacity
+            style={pageStyles.googleButton}
+            onPress={() => router.push("./auth/signup")}
+          >
+            <Text style={pageStyles.googleButtonText}>Sign Up now</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={pageStyles.emailButton}
+            onPress={() => router.push("./auth")}
+          >
+            <Text style={pageStyles.emailButtonText}>Sign In</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-
-
-    </View>
+    </ScrollView>
   );
-};
-
-export default LoginScreen;
+}

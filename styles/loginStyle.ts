@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 
+// Menerapkan External Styles
 export const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
