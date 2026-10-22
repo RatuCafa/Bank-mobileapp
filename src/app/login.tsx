@@ -1,16 +1,49 @@
-import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, Keyboard, Platform } from "react-native";
 import { router, Stack } from "expo-router";
+import { handleLogin } from '../../functions/handLogin';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginEmailScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  // State untuk menyimpan status apakah keyboard menutupi layar
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  // Hook untuk mendeteksi mode keyboard aktif/hilang
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      () => setKeyboardVisible(false)
+    );
+
+    // Membersihkan listener saat pindah halaman
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
       {/* 1. Lengkungan Putih di Background Bawah */}
       <View style={styles.whiteCurve} />
+
+      <ScrollView 
+        // Logika cerdas: Tambah ruang kosong 250px di bawah HANYA saat keyboard muncul
+        contentContainerStyle={{ 
+          flexGrow: 1, 
+          paddingBottom: isKeyboardVisible ? 250 : 0 
+        }} 
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      ></ScrollView>
 
       {/* 2. Konten Utama (Berada di atas lengkungan) */}
       <View style={styles.content}>
@@ -68,20 +101,20 @@ export default function LoginEmailScreen() {
 
         {/* 5. Tombol Sign In & Sign Up */}
         <View style={styles.footerSection}>
-          <TouchableOpacity style={styles.signInButton}>
-            <Text style={styles.signInButtonText}>Sign in</Text>
+            <TouchableOpacity style={styles.signInButton} onPress={() => handleLogin(email, password)}>
+                <Text style={styles.signInButtonText}>Sign in</Text>
           </TouchableOpacity>
 
           <View style={styles.signUpRow}>
             <Text style={styles.noAccountText}>Don't have an account? </Text>
-            <TouchableOpacity onPress={() => router.push('/signup')}>
+            <TouchableOpacity onPress={() => router.push('/auth/signup')}>
               <Text style={styles.signUpText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
         </View>
 
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
