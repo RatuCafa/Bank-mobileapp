@@ -3,11 +3,10 @@ import { View, Text } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AppFeature } from '../types';
 
-// 2. Menerapkan Deklarasi Custom Function & Loop (Render UI)
 export const renderFeatures = (features: AppFeature[]) => {
   let featureElements = [];
   
-  // Menerapkan Loop (for-loop)
+  
   for (let i = 0; i < features.length; i++) {
     const item = features[i];
     featureElements.push(

@@ -1,9 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export const loginStyles = StyleSheet.create({
-  // ==========================================
-  // GAYA UMUM & SPLASH SCREEN (Desain Baru)
-  // ==========================================
   container: {
     flex: 1,
     backgroundColor: "#F5E6D3", 
@@ -17,7 +14,7 @@ export const loginStyles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     color: "#8D6E63", 
-    fontWeight: "600",
+    fontWeight: "bold",
     marginBottom: 8,
   },
   mainTitle: {
@@ -28,6 +25,11 @@ export const loginStyles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageCont: {
+    flex: 3,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -66,10 +68,21 @@ export const loginStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  thisButton: {
+    backgroundColor: "#1d0f04", 
+    paddingVertical: 18,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  thisButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  
 
-  // ==========================================
-  // GAYA FORM (Untuk Sign Up & Login Email)
-  // ==========================================
+  
+
   headerText: {
     fontSize: 32,
     fontWeight: "bold",

@@ -5,3 +5,7 @@ export const camelFeatures: AppFeature[] = [
   { id: '2', title: 'Mudah dan Cepat', iconName: 'map-marked-alt' },
   { id: '3', title: 'Pembayaran Aman', iconName: 'credit-card' },
 ]
+
+//tambahkan salah satu component yang kalian ketahui bisa text atau tombol 
+//tambahkan sebuah gambar minimal 1
+//berikan sebuah component inline pada salah satu komponen yg bru dibuat

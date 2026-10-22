@@ -17,7 +17,6 @@ export default function LoginEmailScreen() {
         
         {/* Header: Tombol Back & Teks Sign In */}
         <TouchableOpacity 
-          // Ganti router.back() menjadi router.replace('/')
           onPress={() => router.replace('/')} 
           style={styles.headerRow}
         >
@@ -86,9 +85,6 @@ export default function LoginEmailScreen() {
   );
 }
 
-// ==========================================
-// STYLES KHUSUS HALAMAN LOGIN EMAIL
-// ==========================================
 const styles = StyleSheet.create({
   container: {
     flex: 1,

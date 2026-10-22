@@ -1,8 +1,8 @@
 import { Text, View, TouchableOpacity, Image } from "react-native";
-import { router } from "expo-router";
-
-// Mengimpor style bertema My Camel
+import { router, Stack } from "expo-router";
 import { loginStyles } from "../../styles"; 
+
+<Stack.Screen options={{ headerShown: false }} />
 
 const LoginScreen = () => {
   return (
@@ -29,7 +29,7 @@ const LoginScreen = () => {
         {/* Tombol Atas berubah jadi Sign Up */}
         <TouchableOpacity 
           style={loginStyles.googleButton}
-          onPress={() => router.push('/signup')} // <-- Langsung arahkan ke form pendaftaran
+          onPress={() => router.push('/signup')} 
         >
           <Text style={loginStyles.googleButtonText}>Sign Up now</Text>
         </TouchableOpacity>
@@ -37,12 +37,21 @@ const LoginScreen = () => {
         {/* Tombol Bawah berubah jadi Sign In */}
         <TouchableOpacity 
           style={loginStyles.emailButton}
-          onPress={() => router.push('/login')} // <-- Mengarah ke halaman form login
+          onPress={() => router.push('/login')} 
         >
           <Text style={loginStyles.emailButtonText}>Sign In</Text>
         </TouchableOpacity>
+
+
+         <TouchableOpacity 
+          style={loginStyles.thisButton}
+          onPress={() => router.push('/login')} 
+        >
+          <Text style={loginStyles.thisButtonText}>Ini tombol</Text>
+        </TouchableOpacity>
         
       </View>
+
 
     </View>
   );
