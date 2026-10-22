@@ -1,83 +1,222 @@
 import { useState } from "react";
 import {
-  ScrollView,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-  Button,
+  Image,
+  StyleSheet,
+  ScrollView,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { handleLogin,  renderFeatures, infoIcon as InfoIcon, toggleIcon as ToggleIcon} from "../component";
-import { loginStyles } from "../styles";
-import { camelFeatures } from "../constants";
-import { Background } from "expo-router/build/react-navigation";
+import { router, Stack } from "expo-router";
 
 export function LoginScreen() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <ScrollView>
-      <View style={loginStyles.container}>
-        <TouchableOpacity style={loginStyles.toggleIcon}>
-          <ToggleIcon/>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+        {/* 1. Lengkungan Putih di Background Bawah */}
+        <View style={styles.whiteCurve} />
 
-        <Text style={loginStyles.headerText}>My Camel</Text>
-        <Text style={loginStyles.subHeaderText}>Bank Account</Text>
+        {/* 2. Konten Utama (Berada di atas lengkungan) */}
+        <View style={styles.content}>
+          {/* Header: Tombol Back & Teks Sign In */}
+          <TouchableOpacity
+            onPress={() => router.replace("/")}
+            style={styles.headerRow}
+          >
+            <View style={styles.backButton}>
+              <Text style={styles.backIcon}>{"<"}</Text>
+            </View>
+            <Text style={styles.headerTitle}>Sign in</Text>
+          </TouchableOpacity>
 
-        <TextInput
-          style={loginStyles.input}
-          placeholder="Masukkan Email"
-          placeholderTextColor="#999"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+          {/* Teks Sambutan */}
+          <View style={styles.welcomeSection}>
+            <Text style={styles.welcomeText}>Welcome Back</Text>
+            <Text style={styles.helloText}>
+              Hello there, sign in to continue
+            </Text>
+          </View>
 
-        <TextInput
-          style={loginStyles.input}
-          placeholder="Masukkan Password"
-          placeholderTextColor="#999"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
+          {/* 3. Gambar Kartu Metalik Sesuai Permintaan */}
+          <View style={styles.imageContainer}>
+            <Image
+              source={{
+                uri: "https://static.vecteezy.com/system/resources/thumbnails/071/928/583/small_2x/double-dark-metallic-banking-cards-3d-icon-png.png",
+              }}
+              style={styles.metallicCard}
+              resizeMode="contain"
+            />
+          </View>
 
-        <View style={loginStyles.featureSection}>
-          <View style={{ marginTop: 20, alignItems: "center" }}>
-            <TouchableOpacity
-              style={loginStyles.loginButton}
-              onPress={() => handleLogin(email, password)}
-            >
-              <Text style={loginStyles.loginButtonText}>MASUK</Text>
-            </TouchableOpacity>
+          {/* 4. Form Input */}
+          <View style={styles.formSection}>
+            <TextInput
+              style={styles.input}
+              placeholder="Username/Email"
+              placeholderTextColor="#E0E0E0"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor="#E0E0E0"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
 
-            <Text style={{ color: "#555" }}>Belum punya akun?</Text>
-            <TouchableOpacity onPress={() => router.push("./auth/signup")}>
-              <Text
-                style={{ color: "#D2691E", fontWeight: "bold", marginTop: 5 }}
-              >
-                Daftar di sini
+            <TouchableOpacity style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>
+                Forgot your password ?
               </Text>
             </TouchableOpacity>
           </View>
-          <Text style={loginStyles.featureHeading}>
-            Kenapa memilih My Camel?
-          </Text>
-          {renderFeatures(camelFeatures)}
-        </View>
 
-        <TouchableOpacity
-          style={loginStyles.infoIcon}
-          onPress={() => router.push("./feature")}
-        >
-          <InfoIcon />
-        </TouchableOpacity>
+          {/* 5. Tombol Sign In & Sign Up */}
+          <View style={styles.footerSection}>
+            <TouchableOpacity style={styles.signInButton}>
+              <Text style={styles.signInButtonText}>Sign in</Text>
+            </TouchableOpacity>
+
+            <View style={styles.signUpRow}>
+              <Text style={styles.noAccountText}>Don't have an account? </Text>
+              <TouchableOpacity onPress={() => router.push("./auth/signup")}>
+                <Text style={styles.signUpText}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#A27B5C", // Warna coklat kopi susu sesuai gambar
+  },
+  // Trik membuat lengkungan putih di bawah
+  whiteCurve: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "51%",
+    backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 120, // Membuat kurva melengkung tajam di kiri atas
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 60,
+  },
+
+  // Header
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 40,
+  },
+  backButton: {
+    marginRight: 15,
+  },
+  backIcon: {
+    fontSize: 24,
+    color: "#FFFFFF",
+    fontWeight: "bold",
+  },
+  headerTitle: {
+    fontSize: 18,
+    color: "#FFFFFF",
+    fontWeight: "600",
+  },
+
+  // Sambutan
+  welcomeSection: {
+    marginBottom: 20,
+  },
+  welcomeText: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    marginBottom: 8,
+  },
+  helloText: {
+    fontSize: 14,
+    color: "#2C2C2C", // Warna abu gelap/hitam
+    fontWeight: "700",
+  },
+
+  // Gambar Sisipan
+  imageContainer: {
+    alignItems: "center",
+    marginBottom: 25,
+  },
+  metallicCard: {
+    width: 350,
+    height: 200,
+  },
+
+  // Form
+  formSection: {
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1.5,
+    borderColor: "rgba(255, 255, 255, 0.4)",
+    backgroundColor: "rgba(139, 134, 134, 0.78)", // Transparan putih
+    borderRadius: 15,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    marginBottom: 16,
+    fontSize: 15,
+    color: "#333", // Warna teks ketikan
+  },
+  forgotPassword: {
+    alignSelf: "flex-end",
+  },
+  forgotPasswordText: {
+    fontSize: 12,
+    color: "#555",
+    fontWeight: "600",
+  },
+
+  // Footer & Tombol
+  footerSection: {
+    marginTop: "auto", // Mendorong ke paling bawah layar
+    paddingBottom: 40,
+  },
+  signInButton: {
+    backgroundColor: "#A27B5C", // Coklat yang sama dengan background atas
+    borderRadius: 15,
+    paddingVertical: 16,
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  signInButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  signUpRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  noAccountText: {
+    color: "#666",
+    fontSize: 13,
+  },
+  signUpText: {
+    color: "#A27B5C",
+    fontSize: 13,
+    fontWeight: "bold",
+  },
+});

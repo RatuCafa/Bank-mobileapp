@@ -4,7 +4,7 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ title: "Home" }} />
-      <Stack.Screen name="feature" options={ {title: "Feature"} }/>
+      <Stack.Screen name="auth" options={ {title: "Login"} }/>
     </Stack>
   );
 }

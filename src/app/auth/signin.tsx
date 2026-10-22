@@ -1,5 +1,5 @@
 import { LoginScreen } from "../../../pages";
 
-export default function LoginPage() {
+export function LoginPage() {
   return <LoginScreen />;
 }
