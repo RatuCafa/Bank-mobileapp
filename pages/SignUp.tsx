@@ -6,7 +6,7 @@ import { backButton as BackButton} from "../component";
 
 import { loginStyle } from "../styles";
 
-import { handleSignup } from "../component"; 
+import { handleSignup } from "../functions"; 
 
 export function SignupScreen ()  {
   // Semua state untuk menampung inputan pengguna

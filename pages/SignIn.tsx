@@ -6,10 +6,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
-import { backButton as BackButton, handleLogin } from "../component";
+import { backButton as BackButton } from "../component";
+import { handleLogin } from "../functions";
 import { SignInStyle } from "../styles";
+import { FadeSpec } from "expo-router/build/react-navigation/bottom-tabs/TransitionConfigs/TransitionSpecs";
 
 export function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -34,7 +36,6 @@ export function LoginScreen() {
             <Text style={SignInStyle.headerTitle}>Sign in</Text>
           </TouchableOpacity>*/}
 
-          
           <BackButton />
 
           {/* Teks Sambutan */}
@@ -76,7 +77,7 @@ export function LoginScreen() {
               secureTextEntry
             />
 
-            <TouchableOpacity style={SignInStyle.forgotPassword} >
+            <TouchableOpacity style={SignInStyle.forgotPassword}>
               <Text style={SignInStyle.forgotPasswordText}>
                 Forgot your password ?
               </Text>
@@ -85,7 +86,10 @@ export function LoginScreen() {
 
           {/* 5. Tombol Sign In & Sign Up */}
           <View style={SignInStyle.footerSection}>
-            <TouchableOpacity style={SignInStyle.signInButton}>
+            <TouchableOpacity
+              style={SignInStyle.signInButton}
+              onPress={ () => handleLogin(email, password)}
+            >
               <Text style={SignInStyle.signInButtonText}>Sign in</Text>
             </TouchableOpacity>
 
