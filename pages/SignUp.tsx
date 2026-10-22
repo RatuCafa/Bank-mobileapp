@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
+import { backButton as BackButton} from "../component";
 
 // Import style (sesuaikan dengan path yang benar)
 import { loginStyle } from "../styles";
@@ -53,6 +54,7 @@ export function SignupScreen ()  {
     // Gunakan ScrollView karena formnya panjang
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={[loginStyle.container, { paddingVertical: 40 }]}>
+        <BackButton />
         <Text style={loginStyle.headerText}>My Camel</Text>
         <Text style={loginStyle.subHeaderText}>Buka Rekening Baru</Text>
 
@@ -154,11 +156,9 @@ export function SignupScreen ()  {
         {/* Kembali ke Login */}
         <View style={{ marginTop: 20, alignItems: 'center' }}>
           <Text style={{ color: '#555' }}>Sudah memiliki rekening?</Text>
-          <Link href="/" asChild>
             <TouchableOpacity>
-              <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }}>Masuk di sini</Text>
+              <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }} onPress={ () => router.back()}>Masuk di sini</Text>
             </TouchableOpacity>
-          </Link>
         </View>
       </View>
     </ScrollView>
