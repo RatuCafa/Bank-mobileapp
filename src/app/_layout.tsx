@@ -10,6 +10,7 @@ export default function RootLayout() {
       <Stack screenOptions={{headerShown: false}}>
         <Stack.Screen name="index" options={{ title: "Home", headerShown: false}} />
         <Stack.Screen name="auth" options={{ title: "Login", headerShown: false}} />
+        <Stack.Screen name="menu" options={{ title: "Dasboard", headerShown: false}} />
       </Stack>
     </ThemeContext.Provider>
   );

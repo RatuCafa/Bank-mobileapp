@@ -88,7 +88,7 @@ export function LoginScreen() {
           <View style={SignInStyle.footerSection}>
             <TouchableOpacity
               style={SignInStyle.signInButton}
-              onPress={ () => handleLogin(email, password)}
+              onPress={ () => router.replace("./menu")}
             >
               <Text style={SignInStyle.signInButtonText}>Sign in</Text>
             </TouchableOpacity>
