@@ -12,7 +12,7 @@ import { menuCard } from "../constants";
 import { renderMenu } from "../component"; // Pastikan path ini benar mengarah ke menuCard.tsx
 import { dasboardStyles } from "../styles"; // Pastikan path import benar
 
-export function DasboardScreen() {
+export function DashboardScreen() {
     return (
         <SafeAreaView style={dasboardStyles.container}>
             <StatusBar barStyle="light-content" backgroundColor="#9A7B62" />

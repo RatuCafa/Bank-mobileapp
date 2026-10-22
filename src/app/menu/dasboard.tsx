@@ -1,7 +1,5 @@
-import { DasboardScreen } from "../../../pages";
+import { DashboardScreen } from "../../../pages";
 
 export default function DasboardPage() {
-    return (
-        <DasboardScreen/>
-    );
+    return <DashboardScreen />;
 }
