@@ -1,4 +1,5 @@
-import { Alert, Platform } from 'react-native';
+import { Alert} from 'react-native';
+import { router } from "expo-router";
 
 export const handleLogin = (userEmail: string, userPass: string) => {
   if (!userEmail || !userPass) {
@@ -14,7 +15,6 @@ export const handleLogin = (userEmail: string, userPass: string) => {
     window.alert(`Berhasil: Selamat datang di My Camel, ${userEmail}!`);
   } else {
     Alert.alert('Berhasil', `Selamat datang di My Camel, ${userEmail}!`);
-  }
-  
-  return true;
+    router.push("./menu")
+    return true;
 };
