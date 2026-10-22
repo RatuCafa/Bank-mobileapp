@@ -43,12 +43,6 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
 
-         <TouchableOpacity 
-          style={loginStyles.thisButton}
-          onPress={() => router.push('/login')} 
-        >
-          <Text style={loginStyles.thisButtonText}>Ini tombol</Text>
-        </TouchableOpacity>
         
       </View>
 
