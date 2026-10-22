@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const loginStyles = StyleSheet.create({
+export const loginStyles =  StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
@@ -61,8 +61,16 @@ export const loginStyles = StyleSheet.create({
     color: '#8B4513',
   },
   infoIcon: {
-    justifyContent: "flex-end",
     alignItems: 'flex-end',
     marginRight: 10,
   },
+  toggleIcon: {
+    alignItems: 'flex-end',
+    marginRight: 5,
+    marginTop: 5,
+    borderColor: "#D2691E",
+    borderWidth: 1,
+    borderRadius: 50,
+    width: 30,
+  }
 });

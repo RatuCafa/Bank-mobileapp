@@ -5,12 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Button,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { handleLogin } from "../component";
-import { renderFeatures, infoIcon as InfoIcon } from "../component";
+import { handleLogin,  renderFeatures, infoIcon as InfoIcon, toggleIcon as ToggleIcon} from "../component";
 import { loginStyles } from "../styles";
 import { camelFeatures } from "../constants";
+import { Background } from "expo-router/build/react-navigation";
 
 export function LoginScreen() {
   const [email, setEmail] = useState<string>("");
@@ -20,6 +21,10 @@ export function LoginScreen() {
   return (
     <ScrollView>
       <View style={loginStyles.container}>
+        <TouchableOpacity style={loginStyles.toggleIcon}>
+          <ToggleIcon/>
+        </TouchableOpacity>
+
         <Text style={loginStyles.headerText}>My Camel</Text>
         <Text style={loginStyles.subHeaderText}>Bank Account</Text>
 
