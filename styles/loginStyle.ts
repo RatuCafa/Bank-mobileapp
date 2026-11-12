@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 
-// Menerapkan External Styles
-export const loginStyles = StyleSheet.create({
+export const loginStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5E6D3", 

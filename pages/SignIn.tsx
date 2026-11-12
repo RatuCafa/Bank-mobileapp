@@ -119,3 +119,4 @@ export function LoginScreen() {
     </KeyboardAvoidingView>
   );
 }
+//tambah page baru dan buat button baru dari home yang mengarah ke page baru tersebut.

@@ -1,3 +1,5 @@
 export { LoginScreen } from "./SignIn"
 export { SignupScreen } from "./SignUp"
 export { DashboardScreen } from "./Dashboard"
+export {cobi} from "./coba"
+export {baru} from "./baru"
