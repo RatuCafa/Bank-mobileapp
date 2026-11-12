@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Keyboard,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Keyboard,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 import { COLORS, CurrencyStyle } from "../styles/currencyStyles";
@@ -61,12 +61,14 @@ export function dumpPage() {
 
   // Mengambil data kurs dari API
 
+  // CUSTOM ASYNC FUNCTION
   const fetchRates = async () => {
     Keyboard.dismiss();
 
     const source = sourceCurrency.trim().toUpperCase();
     const numericAmount = Number(amount);
 
+    // Validasi input
     if (!/^[A-Z]{3}$/.test(source)) {
       setError("Kode mata uang asal tidak valid.");
       return;
@@ -91,38 +93,62 @@ export function dumpPage() {
     setError(null);
     setRates([]);
 
-    try {
-      const targets = targetList.join(",");
+    // PROMISE.RESOLVE()
+    return (
+      Promise.resolve(targetList.join(","))
 
-      const response = await fetch(
-        `http://172.16.50.5:3000/api/rates?source=${source}&targets=${targets}`,
-      );
+        // THEN() - Mengambil data dari API menggunakan fetch()
+        .then((targets) => {
+          const url = `http://172.16.50.5:3000/api/rates?source=${source}&targets=${targets}`;
 
-      const result = await response.json();
+          return fetch(url);
+        })
 
-      if (!response.ok) {
-        throw new Error(result.error || "Gagal mengambil kurs");
-      }
+        // THEN() - Membaca response API
+        .then((response) => {
+          return response.json().then((result) => {
+            // PROMISE.REJECT() - Menangani HTTP error
+            if (!response.ok) {
+              return Promise.reject(
+                new Error(result.error || "Gagal mengambil kurs"),
+              );
+            }
 
-      const validRates: RateItem[] = result.map((item: any) => ({
-        target: item.target,
-        rate: Number(item.rate),
-      }));
+            return result;
+          });
+        })
 
-      if (validRates.length === 0) {
-        setError("Data kurs tidak ditemukan.");
-      } else {
-        setRates(validRates);
-      }
+        
+        .then((result) => {
+          if (!Array.isArray(result)) {
+            return Promise.reject(new Error("Format data API tidak valid."));
+          }
 
-      console.log("Data kurs:", validRates);
-    } catch (error: any) {
-      console.log("Fetch error:", error);
+          const validRates: RateItem[] = result.map((item: any) => ({
+            target: item.target,
+            rate: Number(item.rate),
+          }));
 
-      setError(error.message || "Gagal mengambil data kurs.");
-    } finally {
-      setLoading(false);
-    }
+          if (validRates.length === 0) {
+            setError("Data kurs tidak ditemukan.");
+          } else {
+            setRates(validRates);
+          }
+
+          console.log("Data kurs:", validRates);
+        })
+
+        // CATCH() - Menangani error
+        .catch((error: any) => {
+          console.log("Fetch error:", error);
+          setError(error.message || "Gagal mengambil data kurs.");
+        })
+
+        // FINALLY() - Menghentikan loading
+        .finally(() => {
+          setLoading(false);
+        })
+    );
   };
 
   // Mengambil kurs saat halaman pertama kali dibuka
