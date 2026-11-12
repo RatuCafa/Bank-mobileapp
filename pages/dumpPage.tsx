@@ -99,7 +99,7 @@ export function dumpPage() {
 
         // THEN() - Mengambil data dari API menggunakan fetch()
         .then((targets) => {
-          const url = `{IP_ADDRESS}:3000/api/rates?source=${source}&targets=${targets}`;
+          const url = `http://{IP_ADDRESS}:3000/api/rates?source=${source}&targets=${targets}`;
 
           return fetch(url);
         })

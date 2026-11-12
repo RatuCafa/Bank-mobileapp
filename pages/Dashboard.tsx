@@ -1,6 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View, StatusBar, ActivityIndicator} from "react-native";
+import {
+  Image,
+  ScrollView,
+  Text,
+  View,
+  StatusBar,
+  ActivityIndicator,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { menuCard } from "../constants";
 import { renderMenu } from "../component"; // Pastikan path ini benar mengarah ke menuCard.tsx
@@ -10,9 +17,28 @@ import { getFinancialNews } from "../component";
 import { Article } from "../types";
 
 export function DashboardScreen() {
-    const [news, setNews] = useState<Article[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [errorMsg, setErrorMsg] = useState("");
+  const [news, setNews] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        // Memanggil API finlight (bisa kirim kata kunci & jumlah berita)
+        const result = await getFinancialNews("finance", 19);
+
+        // PERBAIKAN 1: finlight mengembalikan array di dalam 'result.articles'
+        setNews(result.articles || []);
+      } catch (error: any) {
+        setErrorMsg(error.toString());
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
   return (
     <ScrollView style={dasboardStyles.container}>
       {/*<StatusBar barStyle="light-content" backgroundColor="#9A7B62" /> */}
