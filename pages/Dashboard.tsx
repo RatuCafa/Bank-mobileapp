@@ -4,7 +4,6 @@ import {
   ScrollView,
   Text,
   View,
-  SafeAreaView,
   StatusBar
 } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
@@ -14,8 +13,8 @@ import { dasboardStyles } from "../styles"; // Pastikan path import benar
 
 export function DashboardScreen() {
     return (
-        <SafeAreaView style={dasboardStyles.container}>
-            <StatusBar barStyle="light-content" backgroundColor="#9A7B62" />
+        <ScrollView style={dasboardStyles.container}>
+            {/*<StatusBar barStyle="light-content" backgroundColor="#9A7B62" /> */}
             <ScrollView showsVerticalScrollIndicator={false}>
                 
                 {/* Header Background */}
@@ -52,7 +51,7 @@ export function DashboardScreen() {
                         </View>
                         
                         <View style={dasboardStyles.cardBottom}>
-                            <Text style={dasboardStyles.cardBalance}>$3,469.52</Text>
+                            <Text style={dasboardStyles.cardBalance}>Rp3,469,000.52</Text>
                             <Text style={dasboardStyles.cardLogo}>VISA</Text>
                         </View>
                     </View>
@@ -64,6 +63,6 @@ export function DashboardScreen() {
                 </View>
 
             </ScrollView>
-        </SafeAreaView>
+        </ScrollView>
     );
 }

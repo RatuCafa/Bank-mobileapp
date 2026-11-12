@@ -1,14 +1,13 @@
 import { useEffect, useContext } from "react";
 import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { pageStyles } from "../../styles";
-import { ThemeContext } from "../../hooks"; 
+import { ThemeContext } from "../../hooks";
 
 export default function LoginScreen() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
 
-  
   useEffect(() => {
     const loadTheme = async () => {
       try {
@@ -22,7 +21,7 @@ export default function LoginScreen() {
     };
 
     loadTheme();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const saveTheme = async () => {
@@ -35,28 +34,46 @@ export default function LoginScreen() {
     };
 
     saveTheme();
-  }, [darkMode]); 
+  }, [darkMode]);
 
   return (
-    <ScrollView style={{ backgroundColor: darkMode ? "#121212" : "#F5E6D3", flex: 1 }}>
-      <View style={[pageStyles.container, { backgroundColor: darkMode ? "#121212" : "#F5E6D3" }]}>
-        
+    <ScrollView
+      style={{ backgroundColor: darkMode ? "#121212" : "#F5E6D3", flex: 1 }}
+    >
+      <View
+        style={[
+          pageStyles.container,
+          { backgroundColor: darkMode ? "#121212" : "#F5E6D3" },
+        ]}
+      >
         {/* Tombol Toggle Tema */}
-        <TouchableOpacity 
-          style={{ alignSelf: 'flex-end', padding: 10 }}
+        <TouchableOpacity
+          style={{ alignSelf: "flex-end", padding: 10 }}
           onPress={() => setDarkMode(!darkMode)}
         >
-          <Text style={{ color: darkMode ? "#FFF" : "#000", fontWeight: "bold" }}>
+          <Text
+            style={{ color: darkMode ? "#FFF" : "#000", fontWeight: "bold" }}
+          >
             {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
           </Text>
         </TouchableOpacity>
 
         {/* Bagian Atas: Teks Judul */}
         <View style={pageStyles.headerContainer}>
-          <Text style={[pageStyles.subTitle, { color: darkMode ? "#BBBBBB" : "gray" }]}>
+          <Text
+            style={[
+              pageStyles.subTitle,
+              { color: darkMode ? "#BBBBBB" : "gray" },
+            ]}
+          >
             My Camel
           </Text>
-          <Text style={[pageStyles.mainTitle, { color: darkMode ? "#FFFFFF" : "#000000" }]}>
+          <Text
+            style={[
+              pageStyles.mainTitle,
+              { color: darkMode ? "#FFFFFF" : "#000000" },
+            ]}
+          >
             Your Digital Wallet{"\n"}Simplified
           </Text>
         </View>
@@ -81,12 +98,11 @@ export default function LoginScreen() {
             <Text style={pageStyles.googleButtonText}>Sign Up now</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={pageStyles.emailButton}
-            onPress={() => router.push("./auth")}
-          >
-            <Text style={pageStyles.emailButtonText}>Sign In</Text>
-          </TouchableOpacity>
+          <Link href={"/auth"} style={pageStyles.emailButton}>
+            <TouchableOpacity style={{justifyContent: "center"}}>
+              <Text style={pageStyles.emailButtonText}>Sign In</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
     </ScrollView>

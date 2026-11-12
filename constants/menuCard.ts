@@ -1,7 +1,7 @@
 import { AppMenu } from "../types"
 
 export const menuCard: AppMenu[] = [
-    { title: "Account and Card", iconName: "Wallet"},
+    { title: "Account and Card", iconName: "wallet"},
     { title: "Tranfers", iconName: "arrow-alt-circle-left"},
     { title: "Withdraw", iconName: "address-card"},
     { title: "Mobile prepaid", iconName: "dollar-sign"},
