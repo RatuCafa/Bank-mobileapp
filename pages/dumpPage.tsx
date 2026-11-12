@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-import { COLORS, CurrencyStyle } from "../styles/currencyStyles";
+import { COLORS, CurrencyStyle } from "../styles";
 
 interface RateItem {
   target: string;
