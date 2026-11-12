@@ -1,6 +1,6 @@
 import { NewsResponse } from "../types";
 
-const API_KEY = "API KEY";
+const API_KEY = "API_KEY";
 
 export function getFinancialNews(
   query: string = "market",
