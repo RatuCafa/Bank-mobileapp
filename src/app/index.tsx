@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { router } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage"; 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { pageStyles } from "../../styles";
 import { ThemeContext } from "../../hooks"; 
 
@@ -87,6 +87,14 @@ export default function LoginScreen() {
           >
             <Text style={pageStyles.emailButtonText}>Sign In</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={pageStyles.googleButton}
+            onPress={() => router.push("./auth/baru")}
+          >
+            <Text style={pageStyles.googleButtonText}>baru</Text>
+          </TouchableOpacity>
+          
         </View>
       </View>
     </ScrollView>

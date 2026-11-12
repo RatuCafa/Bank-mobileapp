@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AppMenu } from '../types';
 import { dasboardStyles } from '../styles'; // Pastikan path import benar
+import { router } from 'expo-router';
 
 export const renderMenu = (features: AppMenu[]) => {
   return features.map((item, index) => {
@@ -19,7 +20,7 @@ export const renderMenu = (features: AppMenu[]) => {
     else if(item.title.includes('Beneficiary')) iconColor = '#DC143C';
 
     return (
-      <TouchableOpacity key={index} style={dasboardStyles.menuItem}>
+      <TouchableOpacity key={index} style={dasboardStyles.menuItem} onPress={() => router.push("./menu/baru")}>
         <View style={dasboardStyles.iconContainer}>
           <FontAwesome5 name={item.iconName} size={28} color={iconColor} />
         </View>
