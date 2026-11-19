@@ -1,5 +1,6 @@
-export { handleLogin } from "./handLogin";
-export { handleSignup } from "./handleSignUp";
 export { renderFeatures } from "./feature";
 export { infoIcon } from "./informationIcon";
 export { toggleIcon } from "./toggleIcon";
+export { backButton } from "./backButton";
+export { renderMenu } from "./menuCard";
+export { getFinancialNews } from "./newService";

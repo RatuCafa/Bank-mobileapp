@@ -9,19 +9,22 @@ export const pageStyles = StyleSheet.create({
     paddingBottom: 40,
   },
   headerContainer: {
+    alignItems: "center",
     marginTop: 10,
   },
   subTitle: {
-    fontSize: 18,
+    fontSize: 42,
     color: "#8D6E63", 
     fontWeight: "bold",
     marginBottom: 8,
+    
   },
   mainTitle: {
     fontSize: 42,
     fontWeight: "900", 
     color: "#3E2723", 
     lineHeight: 48, 
+    textAlign: "center",
   },
   imageContainer: {
     flex: 1,
