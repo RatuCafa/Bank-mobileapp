@@ -1,25 +1,47 @@
 
 import { createClient } from "@supabase/supabase-js";
+import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
-// Adapter penyimpanan session terenkripsi
+// Adapter penyimpanan session terenkripsi (dengan fallback aman untuk Web / SSR)
 const ExpoSecureStoreAdapter = {
-  getItem: (key: string) =>
-    SecureStore.getItemAsync(key),
+  getItem: (key: string) => {
+    if (Platform.OS === "web") {
+      if (typeof window === "undefined") {
+        return null;
+      }
+      return localStorage.getItem(key);
+    }
+    return SecureStore.getItemAsync(key);
+  },
 
-  setItem: (key: string, value: string) =>
-    SecureStore.setItemAsync(key, value),
+  setItem: (key: string, value: string) => {
+    if (Platform.OS === "web") {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(key, value);
+      }
+      return;
+    }
+    return SecureStore.setItemAsync(key, value);
+  },
 
-  removeItem: (key: string) =>
-    SecureStore.deleteItemAsync(key),
+  removeItem: (key: string) => {
+    if (Platform.OS === "web") {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem(key);
+      }
+      return;
+    }
+    return SecureStore.deleteItemAsync(key);
+  },
 };
 
 // Ambil konfigurasi dari environment
 const supabaseUrl =
-  process.env.EXPO_PUBLIC_SUPABASE_URL || "";
+  (process.env.EXPO_PUBLIC_SUPABASE_URL || "").trim();
 
 const supabaseAnonKey =
-  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || "";
+  (process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || "").trim();
 
 // Validasi konfigurasi
 if (!supabaseUrl || !supabaseAnonKey) {
@@ -35,7 +57,8 @@ export const supabase = createClient(
       storage: ExpoSecureStoreAdapter,
       autoRefreshToken: true,
       persistSession: true,
-      detectSessionInUrl: false,
+      detectSessionInUrl: Platform.OS === "web",
     },
   }
 );
+

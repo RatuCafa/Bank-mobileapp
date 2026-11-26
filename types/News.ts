@@ -5,6 +5,9 @@ export interface Article {
   publishDate: string;
   summary?: string;
   images?: string[];
+  language?: string;
+  categories?: string[];
+  countries?: string[];
 }
 
 export interface NewsResponse {
@@ -13,3 +16,4 @@ export interface NewsResponse {
   pageSize: number;
   articles: Article[];
 }
+

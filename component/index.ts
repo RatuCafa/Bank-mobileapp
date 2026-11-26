@@ -4,3 +4,4 @@ export { toggleIcon } from "./toggleIcon";
 export { backButton } from "./backButton";
 export { renderMenu } from "./menuCard";
 export { getFinancialNews } from "./newService";
+export type { GetFinancialNewsOptions } from "./newService";

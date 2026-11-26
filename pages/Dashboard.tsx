@@ -26,6 +26,30 @@ export function DashboardScreen() {
   const { user, session} = useAuth();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+  useEffect(() => {
+    let isMounted = true;
+    setLoading(true);
+    getFinancialNews()
+      .then((data) => {
+        if (isMounted) {
+          setNews(data.articles || []);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (isMounted) {
+          setErrorMsg(
+            err instanceof Error ? err.message : "Gagal memuat berita",
+          );
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const onLogout = async () => {
     if (isLoggingOut) return;
 
