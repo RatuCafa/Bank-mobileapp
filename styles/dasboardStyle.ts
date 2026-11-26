@@ -11,9 +11,12 @@ export const dasboardStyles = StyleSheet.create({
   headerBackground: {
     backgroundColor: '#9A7B62', // Warna coklat dari gambar
     height: 180,
-    borderBottomLeftRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
     paddingTop: 50,
+    marginTop: 10,
     paddingHorizontal: 20,
   },
   headerTopInfo: {

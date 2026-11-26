@@ -10,7 +10,7 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { menuCard } from "../constants";
 import { renderMenu } from "../component"; // Pastikan path ini benar mengarah ke menuCard.tsx
 import { dasboardStyles } from "../styles";
@@ -23,7 +23,7 @@ export function DashboardScreen() {
   const [news, setNews] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  const { user, session} = useAuth();
+  const { user, session } = useAuth();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const onLogout = async () => {
@@ -47,22 +47,40 @@ export function DashboardScreen() {
 
   return (
     <ScrollView style={dasboardStyles.container}>
-      
       {/*<StatusBar barStyle="light-content" backgroundColor="#9A7B62" /> */}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchableOpacity onPress={onLogout} disabled={isLoggingOut} 
-        style={
-          {
-            margin: 30,
-          }
-        }>
-        {isLoggingOut ? (
-          <ActivityIndicator color="#FFFFFF" />
-        ) : (
-          <Text>Logout</Text>
-        )}
-      </TouchableOpacity>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ backgroundColor: "#F5F6FA" }}
+      >
         {/* Header Background */}
+        <TouchableOpacity
+          onPress={onLogout}
+          disabled={isLoggingOut}
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 8,
+            borderColor: "#9A7B62",
+            borderRadius: 60,
+            borderWidth: 2,
+            width: 100,
+            height: 44,
+            paddingHorizontal: 10,
+            alignSelf: "flex-start",
+            marginTop: 30,
+            marginLeft: 20,
+          }}
+        >
+          <Ionicons name="log-out-outline" size={24} color="#9A7B62" />
+          {isLoggingOut ? (
+            <ActivityIndicator color="#FFFFFF" />
+          ) : (
+            <Text style={{ fontSize: 16, color: "#9A7B62", fontWeight: "600" }}>
+              Logout
+            </Text>
+          )}
+        </TouchableOpacity>
         <View style={dasboardStyles.headerBackground}>
           <View style={dasboardStyles.headerTopInfo}>
             <View style={dasboardStyles.userInfo}>
