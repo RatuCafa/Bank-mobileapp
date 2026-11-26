@@ -1,14 +1,20 @@
 import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { router, Stack } from "expo-router";
-import { backButton as BackButton} from "../component";
-
+import { backButton as BackButton } from "../component";
 
 import { loginStyle } from "../styles";
 
-import { handleSignup } from "../functions"; 
+import { handleSignup } from "../functions";
 
-export function SignupScreen ()  {
+export function SignupScreen() {
   // Semua state untuk menampung inputan pengguna
   const [namaLengkap, setNamaLengkap] = useState<string>("");
   const [ttl, setTtl] = useState<string>("");
@@ -20,33 +26,38 @@ export function SignupScreen ()  {
   const [pekerjaan, setPekerjaan] = useState<string>("");
   const [password, setPassword] = useState<string>(""); // <-- Tambahan
   const [konfirmasiPassword, setKonfirmasiPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fungsi yang dipanggil saat tombol DAFTAR ditekan
+
   const onSubmit = async () => {
-    // Validasi tambahan khusus di UI: Pastikan password sama
     if (password !== konfirmasiPassword) {
       alert("Gagal: Password dan Konfirmasi Password tidak cocok!");
       return;
     }
-    // Gabungkan semua data ke dalam satu objek
-    const dataPendaftaran = {
-      namaLengkap,
-      ttl,
-      nik,
-      alamat,
-      namaIbuKandung,
-      noHp,
-      email,
-      pekerjaan,
-      password
-    };
 
-    // Jalankan fungsi logika Sign Up
-    const isSuccess = await handleSignup(dataPendaftaran);
-    
-    // Jika berhasil, arahkan kembali ke halaman Login (opsional)
-    if (isSuccess) {
-      router.replace("/");
+    setIsLoading(true);
+
+    try {
+      const dataPendaftaran = {
+        namaLengkap,
+        ttl,
+        nik,
+        alamat,
+        namaIbuKandung,
+        noHp,
+        email,
+        pekerjaan,
+        password,
+      };
+
+      const isSuccess = await handleSignup(dataPendaftaran);
+
+      if (isSuccess) {
+        router.replace("/");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -147,20 +158,30 @@ export function SignupScreen ()  {
 
         {/* Tombol Daftar */}
         <TouchableOpacity
-          style={loginStyle.loginButton}
-          onPress={onSubmit}
-        >
-          <Text style={loginStyle.loginButtonText}>AJUKAN PENDAFTARAN</Text>
-        </TouchableOpacity>
+            style={loginStyle.loginButton}
+            onPress={onSubmit}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <Text style={loginStyle.loginButtonText}>DAFTAR</Text>
+            )}
+          </TouchableOpacity>
 
         {/* Kembali ke Login */}
-        <View style={{ marginTop: 20, alignItems: 'center' }}>
-          <Text style={{ color: '#555' }}>Sudah memiliki rekening?</Text>
-            <TouchableOpacity>
-              <Text style={{ color: '#D2691E', fontWeight: 'bold', marginTop: 5 }} onPress={ () => router.back()}>Masuk di sini</Text>
-            </TouchableOpacity>
+        <View style={{ marginTop: 20, alignItems: "center" }}>
+          <Text style={{ color: "#555" }}>Sudah memiliki rekening?</Text>
+          <TouchableOpacity>
+            <Text
+              style={{ color: "#D2691E", fontWeight: "bold", marginTop: 5 }}
+              onPress={() => router.back()}
+            >
+              Masuk di sini
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
   );
-};
+}

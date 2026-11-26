@@ -47,15 +47,21 @@ export function DashboardScreen() {
 
   return (
     <ScrollView style={dasboardStyles.container}>
-      <TouchableOpacity onPress={onLogout} disabled={isLoggingOut}>
+      
+      {/*<StatusBar barStyle="light-content" backgroundColor="#9A7B62" /> */}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <TouchableOpacity onPress={onLogout} disabled={isLoggingOut} 
+        style={
+          {
+            margin: 30,
+          }
+        }>
         {isLoggingOut ? (
           <ActivityIndicator color="#FFFFFF" />
         ) : (
           <Text>Logout</Text>
         )}
       </TouchableOpacity>
-      {/*<StatusBar barStyle="light-content" backgroundColor="#9A7B62" /> */}
-      <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header Background */}
         <View style={dasboardStyles.headerBackground}>
           <View style={dasboardStyles.headerTopInfo}>
