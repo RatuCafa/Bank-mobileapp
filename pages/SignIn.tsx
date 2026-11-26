@@ -1,5 +1,4 @@
-
-import { router } from "expo-router";
+import { router, useRoute } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -10,6 +9,8 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  Alert,
+  ActivityIndicator,
 } from "react-native";
 
 import { backButton as BackButton } from "../component";
@@ -19,6 +20,31 @@ import { SignInStyle } from "../styles";
 export function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSignIn = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
+    try {
+      const result = await handleLogin(email, password);
+
+      if (!result.success) {
+        Alert.alert("Login Gagal", result.error);
+        return;
+      }
+
+      Alert.alert("Berhasil", `Selamat datang di My Camel, ${email}!`);
+
+      // Perpindahan halaman akan ditangani
+      // oleh Route Guard pada Tahap 4.
+    } catch (error) {
+      Alert.alert("Error", "Terjadi kesalahan saat login.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -40,9 +66,7 @@ export function LoginScreen() {
             <BackButton />
 
             <View style={SignInStyle.welcomeSection}>
-              <Text style={SignInStyle.welcomeText}>
-                Welcome Back
-              </Text>
+              <Text style={SignInStyle.welcomeText}>Welcome Back</Text>
               <Text style={SignInStyle.helloText}>
                 Hello there, sign in to continue
               </Text>
@@ -93,23 +117,22 @@ export function LoginScreen() {
             <View style={SignInStyle.footerSection}>
               <TouchableOpacity
                 style={SignInStyle.signInButton}
-                onPress={() => handleLogin(email, password)}
+                onPress={onSignIn}
+                disabled={isLoading}
               >
-                <Text style={SignInStyle.signInButtonText}>
-                  Sign in
-                </Text>
+                {isLoading ? (
+                  <ActivityIndicator color="#FFFFFF" />
+                ) : (
+                  <Text style={SignInStyle.signInButtonText}>Sign in</Text>
+                )}
               </TouchableOpacity>
 
               <View style={SignInStyle.signUpRow}>
                 <Text style={SignInStyle.noAccountText}>
                   Don't have an account?{" "}
                 </Text>
-                <TouchableOpacity
-                  onPress={() => router.push("./auth/signup")}
-                >
-                  <Text style={SignInStyle.signUpText}>
-                    Sign Up
-                  </Text>
+                <TouchableOpacity onPress={() => router.push("./auth/signup")}>
+                  <Text style={SignInStyle.signUpText}>Sign Up</Text>
                 </TouchableOpacity>
               </View>
             </View>

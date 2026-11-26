@@ -1,2 +1,3 @@
-export { handleLogin } from "../functions/handLogin";
-export { handleSignup } from "../functions/handleSignUp";
+export { handleLogin } from "./handLogin";
+export { handleSignup } from "./handleSignUp";
+export { handleLogout } from "./handleLogout";

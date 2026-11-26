@@ -1,20 +1,59 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View, StatusBar, ActivityIndicator} from "react-native";
+import {
+  Image,
+  ScrollView,
+  Text,
+  View,
+  StatusBar,
+  ActivityIndicator,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { menuCard } from "../constants";
 import { renderMenu } from "../component"; // Pastikan path ini benar mengarah ke menuCard.tsx
-import { dasboardStyles } from "../styles"; // Pastikan path import benar
-
+import { dasboardStyles } from "../styles";
+import { handleLogout } from "../functions"; // Pastikan path import benar
+import { useAuth } from "../context/AuthContext";
 import { getFinancialNews } from "../component";
 import { Article } from "../types";
 
 export function DashboardScreen() {
-    const [news, setNews] = useState<Article[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [errorMsg, setErrorMsg] = useState("");
+  const [news, setNews] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
+  const { user, session} = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const onLogout = async () => {
+    if (isLoggingOut) return;
+
+    setIsLoggingOut(true);
+
+    try {
+      const result = await handleLogout();
+
+      if (!result.success) {
+        Alert.alert("Logout Gagal", result.error);
+        return;
+      }
+
+      Alert.alert("Berhasil", "Kamu telah logout.");
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
   return (
     <ScrollView style={dasboardStyles.container}>
+      <TouchableOpacity onPress={onLogout} disabled={isLoggingOut}>
+        {isLoggingOut ? (
+          <ActivityIndicator color="#FFFFFF" />
+        ) : (
+          <Text>Logout</Text>
+        )}
+      </TouchableOpacity>
       {/*<StatusBar barStyle="light-content" backgroundColor="#9A7B62" /> */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header Background */}
@@ -40,7 +79,7 @@ export function DashboardScreen() {
             <View style={dasboardStyles.cardShape} />
 
             <View>
-              <Text style={dasboardStyles.cardTitle}>Chava</Text>
+              <Text style={dasboardStyles.cardTitle}>{user?.email}</Text>
               <Text style={dasboardStyles.cardType}>Amazon Platinium</Text>
               <View style={dasboardStyles.cardNumberContainer}>
                 <Text style={dasboardStyles.cardNumber}>4756</Text>
